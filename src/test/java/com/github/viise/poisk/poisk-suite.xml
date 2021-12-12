@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="PoiskSuite">
+    <suite-files>
+        <suite-file path="chk/chunk-suite.xml" />
+        <suite-file path="flt/filter-suite.xml" />
+        <suite-file path="ord/order-suite.xml" />
+        <suite-file path="pair/pair-suite.xml" />
+        <suite-file path="sch/search-suite.xml" />
+        <suite-file path="tsk/task-suite.xml" />
+        <suite-file path="vdr/validator-suite.xml" />
+    </suite-files>
+</suite>

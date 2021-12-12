@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Chunk">
+    <test name="ChunkTest">
+        <classes>
+            <class name="com.github.viise.poisk.chk.ChkListTestNG" />
+        </classes>
+    </test>
+</suite>

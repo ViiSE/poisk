@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Filter">
+    <test name="FilterTest">
+        <classes>
+            <class name="com.github.viise.poisk.flt.FltByFrequencyTestNG" />
+            <class name="com.github.viise.poisk.flt.FltListNormalizeFastTestNG" />
+            <class name="com.github.viise.poisk.flt.FltListNormalizeTestNG" />
+            <class name="com.github.viise.poisk.flt.FltListTestNG" />
+            <class name="com.github.viise.poisk.flt.FltNoPunctuationParallelTestNG" />
+            <class name="com.github.viise.poisk.flt.FltNoPunctuationTestNG" />
+        </classes>
+    </test>
+</suite>

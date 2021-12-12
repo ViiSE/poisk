@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Order">
+    <test name="OrderTest">
+        <classes>
+            <class name="com.github.viise.poisk.ord.OrdAscParallelTestNG" />
+            <class name="com.github.viise.poisk.ord.OrdAscTestNG" />
+            <class name="com.github.viise.poisk.ord.OrdDescParallelTestNG" />
+            <class name="com.github.viise.poisk.ord.OrdDescTestNG" />
+        </classes>
+    </test>
+</suite>

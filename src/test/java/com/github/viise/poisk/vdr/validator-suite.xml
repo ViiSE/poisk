@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Validator">
+    <test name="ValidatorTest">
+        <classes>
+            <class name="com.github.viise.poisk.vdr.VdrNaturalIntTestNG" />
+            <class name="com.github.viise.poisk.vdr.VdrNotEmptyListTestNG" />
+            <class name="com.github.viise.poisk.vdr.VdrNotEmptyStrTestNG" />
+            <class name="com.github.viise.poisk.vdr.VdrNotNullTestNG" />
+            <class name="com.github.viise.poisk.vdr.VdrNotZeroIntTestNG" />
+            <class name="com.github.viise.poisk.vdr.VdrPositiveIntTestNG" />
+            <class name="com.github.viise.poisk.vdr.VdrAnagramTestNG" />
+        </classes>
+    </test>
+</suite>

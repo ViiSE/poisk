@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Search">
+    <test name="SearchTest">
+        <classes>
+            <class name="com.github.viise.poisk.sch.SchAnagramTestNG" />
+            <class name="com.github.viise.poisk.sch.SchByConditionTestNG" />
+            <class name="com.github.viise.poisk.sch.SchByQueryTestNG" />
+            <class name="com.github.viise.poisk.sch.SchByRegexTestNG" />
+            <class name="com.github.viise.poisk.sch.SchCharsFrequencyTestNG" />
+            <class name="com.github.viise.poisk.sch.SchDuplicatesFastTestNG" />
+            <class name="com.github.viise.poisk.sch.SchDuplicatesTestNG" />
+            <class name="com.github.viise.poisk.sch.SchEndsWithTestNG" />
+            <class name="com.github.viise.poisk.sch.SchFirstDuplicateTestNG" />
+            <class name="com.github.viise.poisk.sch.SchFirstUniqueTestNG" />
+            <class name="com.github.viise.poisk.sch.SchFrequencyTestNG" />
+            <class name="com.github.viise.poisk.sch.SchItemsTestNG" />
+            <class name="com.github.viise.poisk.sch.SchItemTestNG" />
+            <class name="com.github.viise.poisk.sch.SchLessCommonItemsTestNG" />
+            <class name="com.github.viise.poisk.sch.SchListParallelTestNG" />
+            <class name="com.github.viise.poisk.sch.SchMostCommonItemsTestNG" />
+            <class name="com.github.viise.poisk.sch.SchNotEmptyTestNG" />
+            <class name="com.github.viise.poisk.sch.SchNotNullTestNG" />
+            <class name="com.github.viise.poisk.sch.SchPalindromeTestNG" />
+            <class name="com.github.viise.poisk.sch.SchStartsWithTestNG" />
+            <class name="com.github.viise.poisk.sch.SchSubstringTestNG" />
+            <class name="com.github.viise.poisk.sch.SchUniquesFastTestNG" />
+            <class name="com.github.viise.poisk.sch.SchUniquesTestNG" />
+            <class name="com.github.viise.poisk.sch.SchWordsFrequencyTestNG" />
+        </classes>
+    </test>
+</suite>

@@ -1,38 +1,38 @@
 package com.github.viise.poisk.vdr;
 
-import com.github.viise.poisk.Validator;
-import com.github.viise.poisk.ValidationException;
+import com.github.viise.poisk.Wall;
+import com.github.viise.poisk.ProtectException;
 
 /**
  * Natural int validation.
  */
-public final class VdrNaturalInt implements Validator<Integer> {
+public final class VdrNaturalInt implements Wall<Integer> {
 
-    private final Validator<Object> vdrNotNull = new VdrNotNull();
-    private final Validator<Integer> vdrPositiveInt = new VdrPositiveInt();
-    private final Validator<Integer> vdrNotZeroInt = new VdrNotZeroInt();
+    private final Wall<Object> vdrNotNull = new VdrNotNull();
+    private final Wall<Integer> vdrPositiveInt = new VdrPositiveInt();
+    private final Wall<Integer> vdrNotZeroInt = new VdrNotZeroInt();
 
     /**
      * Validate natural int.
      * @param checkedValueName Checked natural int name.
      * @param checkedValue Checked natural int.
-     * @throws ValidationException If natural is null, zero or negative.
+     * @throws ProtectException If natural is null, zero or negative.
      */
     @Override
-    public void validate(String checkedValueName, Integer checkedValue) throws ValidationException {
+    public void protect(String checkedValueName, Integer checkedValue) throws ProtectException {
         String valName = checkedValueName == null ? "value" : checkedValueName;
-        vdrNotNull.validate(valName, checkedValue);
-        vdrNotZeroInt.validate(valName, checkedValue);
-        vdrPositiveInt.validate(valName, checkedValue);
+        vdrNotNull.protect(valName, checkedValue);
+        vdrNotZeroInt.protect(valName, checkedValue);
+        vdrPositiveInt.protect(valName, checkedValue);
     }
 
     /**
      * Validate natural int. <code>checkedValueName</code> is "value".
      * @param checkedValue Checked natural int.
-     * @throws ValidationException If natural int is not validated.
+     * @throws ProtectException If natural int is not validated.
      */
     @Override
-    public void validate(Integer checkedValue) throws ValidationException {
-        validate("value", checkedValue);
+    public void protect(Integer checkedValue) throws ProtectException {
+        protect("value", checkedValue);
     }
 }

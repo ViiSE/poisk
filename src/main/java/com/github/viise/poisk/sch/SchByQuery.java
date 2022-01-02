@@ -2,8 +2,8 @@ package com.github.viise.poisk.sch;
 
 import com.github.viise.poisk.SearchList;
 import com.github.viise.poisk.NotFoundException;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotEmptyList;
 import com.github.viise.poisk.vdr.VdrNotEmptyStr;
 import com.github.viise.poisk.vdr.VdrNotNull;
@@ -34,9 +34,9 @@ import java.util.List;
  */
 public final class SchByQuery implements SearchList<String> {
 
-    private final Validator<Object> vdrNotNull;
-    private final Validator<List<String>> vdrNotEmptyList;
-    private final Validator<String> vdrNotEmptyStr;
+    private final Wall<Object> vdrNotNull;
+    private final Wall<List<String>> vdrNotEmptyList;
+    private final Wall<String> vdrNotEmptyStr;
 
     private final String searchQuery;
     private final String querySeps;
@@ -76,10 +76,10 @@ public final class SchByQuery implements SearchList<String> {
     @Override
     public List<String> find(List<String> sentences) throws NotFoundException {
         try {
-            vdrNotEmptyList.validate("sentences", sentences);
-            vdrNotEmptyStr.validate("searchQuery", searchQuery);
-            vdrNotNull.validate("querySeps", querySeps);
-        } catch (ValidationException e) {
+            vdrNotEmptyList.protect("sentences", sentences);
+            vdrNotEmptyStr.protect("searchQuery", searchQuery);
+            vdrNotNull.protect("querySeps", querySeps);
+        } catch (ProtectException e) {
             throw new NotFoundException(e);
         }
 

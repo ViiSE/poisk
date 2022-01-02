@@ -18,16 +18,14 @@ package com.github.viise.poisk;
 
 /**
  * For searching.
- * If <code>items</code> is null or a empty, needs throw {@link NotFoundException}.
- * Use {@link Validator} for this.
- * @param <T> Search result.
- * @param <I> Objects to be searched for.
+ * @param <R> Search result.
+ * @param <O> Objects to be searched for.
  */
-public interface Search<T, I> {
+public interface Search<R, O> {
 
     /**
      * @return Founded result.
      * @throws NotFoundException If search did not return any result.
      */
-    T find(I items) throws NotFoundException;
+    R find(O objects) throws NotFoundException;
 }

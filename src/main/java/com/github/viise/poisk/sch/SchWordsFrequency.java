@@ -2,8 +2,8 @@ package com.github.viise.poisk.sch;
 
 import com.github.viise.poisk.NotFoundException;
 import com.github.viise.poisk.Search;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotEmptyList;
 import com.github.viise.poisk.vdr.VdrNotNull;
 
@@ -30,8 +30,8 @@ import java.util.Map;
  */
 public final class SchWordsFrequency implements Search<Map<String, Integer>, List<String>> {
 
-    private final Validator<Object> vdrNotNull;
-    private final Validator<List<String>> vdrNotEmptyList;
+    private final Wall<Object> vdrNotNull;
+    private final Wall<List<String>> vdrNotEmptyList;
 
     private final String separators;
     private final Search<Map<String, Integer>, List<String>> schFreq;
@@ -74,10 +74,10 @@ public final class SchWordsFrequency implements Search<Map<String, Integer>, Lis
     @Override
     public Map<String, Integer> find(List<String> sentences) throws NotFoundException {
         try {
-            vdrNotNull.validate("separators", separators);
-            vdrNotNull.validate("schFreq", schFreq);
-            vdrNotEmptyList.validate("sentences", sentences);
-        } catch (ValidationException e) {
+            vdrNotNull.protect("separators", separators);
+            vdrNotNull.protect("schFreq", schFreq);
+            vdrNotEmptyList.protect("sentences", sentences);
+        } catch (ProtectException e) {
             throw new NotFoundException(e);
         }
 

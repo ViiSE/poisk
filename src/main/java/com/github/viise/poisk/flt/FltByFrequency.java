@@ -1,8 +1,8 @@
 package com.github.viise.poisk.flt;
 
 import com.github.viise.poisk.Filter;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotNull;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.function.Function;
 
 public final class FltByFrequency<T> implements Filter<List<T>, Map<T, Integer>> {
 
-    private final Validator<Object> vdrNotNull = new VdrNotNull();
+    private final Wall<Object> vdrNotNull = new VdrNotNull();
 
     private final Function<Integer, Boolean> condition;
 
@@ -23,8 +23,8 @@ public final class FltByFrequency<T> implements Filter<List<T>, Map<T, Integer>>
     @Override
     public List<T> apply(final Map<T, Integer> freqMap) {
         try {
-            vdrNotNull.validate("condition", condition);
-            vdrNotNull.validate("freqMap", freqMap);
+            vdrNotNull.protect("condition", condition);
+            vdrNotNull.protect("freqMap", freqMap);
 
             List<T> result = new ArrayList<>();
             freqMap.forEach((item, count) -> {
@@ -34,7 +34,7 @@ public final class FltByFrequency<T> implements Filter<List<T>, Map<T, Integer>>
             });
 
             return result;
-        } catch (ValidationException e) {
+        } catch (ProtectException e) {
             return new ArrayList<>();
         }
     }

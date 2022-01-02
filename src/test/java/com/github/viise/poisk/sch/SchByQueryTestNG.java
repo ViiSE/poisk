@@ -1,7 +1,7 @@
 package com.github.viise.poisk.sch;
 
-import com.github.viise.poisk.SearchList;
 import com.github.viise.poisk.NotFoundException;
+import com.github.viise.poisk.SearchList;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -28,6 +28,18 @@ public class SchByQueryTestNG {
         sentences.add("The quick brown fox jumps over the lazy dog");
         sentences.add("You are so lazy!");
         sentences.add("!!!Hello, world!!!");
+    }
+
+    @Test
+    public void test_broken() {
+        try {
+            SearchList<String> schQ = new SchByQuery("Adam Hi");
+            List<String> result = schQ.find(sentences);
+            assertEquals(result.size(), 1);
+            assertTrue(result.contains("Hi Adam"));
+        } catch (NotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test

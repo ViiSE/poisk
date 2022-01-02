@@ -1,8 +1,8 @@
 package com.github.viise.poisk.flt;
 
 import com.github.viise.poisk.FilterList;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotNull;
 
 import java.util.ArrayList;
@@ -10,12 +10,12 @@ import java.util.List;
 
 public final class FltNoPunctuation implements FilterList<String> {
 
-    private final Validator<Object> vdrNotNull = new VdrNotNull();
+    private final Wall<Object> vdrNotNull = new VdrNotNull();
 
     @Override
     public List<String> apply(final List<String> items) {
         try {
-            vdrNotNull.validate("items", items);
+            vdrNotNull.protect("items", items);
 
             List<String> result = new ArrayList<>();
             for (String sentence : items) {
@@ -23,7 +23,7 @@ public final class FltNoPunctuation implements FilterList<String> {
             }
 
             return result;
-        } catch (ValidationException e) {
+        } catch (ProtectException e) {
             return new ArrayList<>();
         }
     }

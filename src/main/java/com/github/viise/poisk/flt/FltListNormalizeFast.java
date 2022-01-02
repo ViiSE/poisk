@@ -1,8 +1,8 @@
 package com.github.viise.poisk.flt;
 
 import com.github.viise.poisk.FilterList;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotNull;
 
 import java.util.ArrayList;
@@ -12,12 +12,12 @@ import java.util.Map;
 
 public final class FltListNormalizeFast<T> implements FilterList<T> {
 
-    private final Validator<Object> vdrNotNull = new VdrNotNull();
+    private final Wall<Object> vdrNotNull = new VdrNotNull();
 
     @Override
     public List<T> apply(final List<T> items) {
         try {
-            vdrNotNull.validate("items", items);
+            vdrNotNull.protect("items", items);
             List<T> uniques = new ArrayList<>();
             Map<T, Void> uniqueMap = new HashMap<>();
 
@@ -30,7 +30,7 @@ public final class FltListNormalizeFast<T> implements FilterList<T> {
             uniqueMap.forEach((item, nothing) -> uniques.add(item) );
 
             return uniques;
-        } catch (ValidationException e) {
+        } catch (ProtectException e) {
             return new ArrayList<>();
         }
     }

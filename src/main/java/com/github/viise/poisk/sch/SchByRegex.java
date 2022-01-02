@@ -2,8 +2,8 @@ package com.github.viise.poisk.sch;
 
 import com.github.viise.poisk.SearchList;
 import com.github.viise.poisk.NotFoundException;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotEmptyList;
 import com.github.viise.poisk.vdr.VdrNotNull;
 
@@ -16,8 +16,8 @@ import java.util.regex.Pattern;
  */
 public final class SchByRegex implements SearchList<String> {
 
-    private final Validator<Object> vdrNotNull;
-    private final Validator<List<String>> vdrNotEmptyList;
+    private final Wall<Object> vdrNotNull;
+    private final Wall<List<String>> vdrNotEmptyList;
 
     private final String regex;
 
@@ -41,9 +41,9 @@ public final class SchByRegex implements SearchList<String> {
     @Override
     public List<String> find(List<String> items) throws NotFoundException {
         try {
-            vdrNotNull.validate("regex", regex);
-            vdrNotEmptyList.validate("items", items);
-        } catch (ValidationException e) {
+            vdrNotNull.protect("regex", regex);
+            vdrNotEmptyList.protect("items", items);
+        } catch (ProtectException e) {
             throw new NotFoundException(e);
         }
 

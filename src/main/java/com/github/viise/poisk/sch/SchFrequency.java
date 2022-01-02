@@ -2,8 +2,8 @@ package com.github.viise.poisk.sch;
 
 import com.github.viise.poisk.NotFoundException;
 import com.github.viise.poisk.Search;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotEmptyList;
 
 import java.util.HashMap;
@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public final class SchFrequency<T> implements Search<Map<T, Integer>, List<T>> {
 
-    private final Validator<List<T>> vdrNotEmptyList;
+    private final Wall<List<T>> vdrNotEmptyList;
 
     public SchFrequency() {
         this.vdrNotEmptyList = new VdrNotEmptyList<>();
@@ -44,8 +44,8 @@ public final class SchFrequency<T> implements Search<Map<T, Integer>, List<T>> {
     @Override
     public Map<T, Integer> find(List<T> items) throws NotFoundException {
         try {
-            vdrNotEmptyList.validate("items", items);
-        } catch (ValidationException e) {
+            vdrNotEmptyList.protect("items", items);
+        } catch (ProtectException e) {
             throw new NotFoundException(e);
         }
 

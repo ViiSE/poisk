@@ -2,7 +2,7 @@ package com.github.viise.poisk.tsk;
 
 import com.github.viise.poisk.FilterList;
 import com.github.viise.poisk.Task;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotNull;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public final class TskFlt<T> implements Task<List<T>> {
 
-    private final Validator<Object> vdrNotNull = new VdrNotNull();
+    private final Wall<Object> vdrNotNull = new VdrNotNull();
 
     private final FilterList<T> flt;
     private final List<T> items;
@@ -35,7 +35,7 @@ public final class TskFlt<T> implements Task<List<T>> {
      */
     @Override
     public List<T> call() throws Exception {
-        vdrNotNull.validate("flt", flt);
+        vdrNotNull.protect("flt", flt);
         return flt.apply(items);
     }
 }

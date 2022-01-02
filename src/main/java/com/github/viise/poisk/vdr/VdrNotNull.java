@@ -1,34 +1,34 @@
 package com.github.viise.poisk.vdr;
 
-import com.github.viise.poisk.Validator;
-import com.github.viise.poisk.ValidationException;
+import com.github.viise.poisk.Wall;
+import com.github.viise.poisk.ProtectException;
 
 /**
  * Not null object validation.
  */
-public final class VdrNotNull implements Validator<Object> {
+public final class VdrNotNull implements Wall<Object> {
 
     /**
      * Validate object.
      * @param checkedValueName Checked object name.
      * @param checkedValue Checked object.
-     * @throws ValidationException If object is null.
+     * @throws ProtectException If object is null.
      */
     @Override
-    public void validate(String checkedValueName, Object checkedValue) throws ValidationException {
+    public void protect(String checkedValueName, Object checkedValue) throws ProtectException {
         String valName = checkedValueName == null ? "value" : checkedValueName;
         if (checkedValue == null) {
-            throw new ValidationException(valName + " is null.");
+            throw new ProtectException(valName + " is null.");
         }
     }
 
     /**
      * Validate object. <code>checkedValueName</code> is "value".
      * @param checkedValue Checked object name.
-     * @throws ValidationException If object is not validated.
+     * @throws ProtectException If object is not validated.
      */
     @Override
-    public void validate(Object checkedValue) throws ValidationException {
-        validate("value", checkedValue);
+    public void protect(Object checkedValue) throws ProtectException {
+        protect("value", checkedValue);
     }
 }

@@ -10,7 +10,7 @@
             <class name="com.github.viise.poisk.vdr.VdrNotNullTestNG" />
             <class name="com.github.viise.poisk.vdr.VdrNotZeroIntTestNG" />
             <class name="com.github.viise.poisk.vdr.VdrPositiveIntTestNG" />
-            <class name="com.github.viise.poisk.vdr.VdrAnagramTestNG" />
+            <class name="com.github.viise.poisk.vdr.WalAnagramTestNG" />
         </classes>
     </test>
 </suite>

@@ -19,9 +19,9 @@ import java.util.List;
  */
 public final class SchListParallel<T> implements SearchList<T> {
 
-    private final Validator<Object> vdrNotNull;
-    private final Validator<Integer> vdrNaturalInt;
-    private final Validator<List<T>> vdrNotEmptyList;
+    private final Wall<Object> vdrNotNull;
+    private final Wall<Integer> vdrNaturalInt;
+    private final Wall<List<T>> vdrNotEmptyList;
 
     private final SearchList<T> sch;
     private final Integer threadCount;
@@ -58,9 +58,9 @@ public final class SchListParallel<T> implements SearchList<T> {
     @Override
     public List<T> find(List<T> items) throws NotFoundException {
         try {
-            vdrNotNull.validate("sch", sch);
-            vdrNaturalInt.validate("threadCount", threadCount);
-            vdrNotEmptyList.validate("items", items);
+            vdrNotNull.protect("sch", sch);
+            vdrNaturalInt.protect("threadCount", threadCount);
+            vdrNotEmptyList.protect("items", items);
 
             List<List<T>> chunkedItemsList = new ChkList<T>(threadCount).divide(items);
             List<Task<List<T>>> tskLists = new ArrayList<>();
@@ -74,7 +74,7 @@ public final class SchListParallel<T> implements SearchList<T> {
             } catch (Exception e) {
                 throw new NotFoundException(e);
             }
-        } catch (DivideException | ValidationException e) {
+        } catch (DivideException | ProtectException e) {
             throw new NotFoundException(e);
         }
     }

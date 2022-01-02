@@ -1,37 +1,37 @@
 package com.github.viise.poisk.vdr;
 
-import com.github.viise.poisk.Validator;
-import com.github.viise.poisk.ValidationException;
+import com.github.viise.poisk.Wall;
+import com.github.viise.poisk.ProtectException;
 
 /**
  * Not empty string validation.
  */
-public final class VdrNotEmptyStr implements Validator<String> {
+public final class VdrNotEmptyStr implements Wall<String> {
 
-    private final Validator<Object> vdrNotNull = new VdrNotNull();
+    private final Wall<Object> vdrNotNull = new VdrNotNull();
 
     /**
      * Validate string.
      * @param checkedValueName Checked string name.
      * @param checkedValue Checked string.
-     * @throws ValidationException If string is null or empty.
+     * @throws ProtectException If string is null or empty.
      */
     @Override
-    public void validate(String checkedValueName, String checkedValue) throws ValidationException {
+    public void protect(String checkedValueName, String checkedValue) throws ProtectException {
         String valName = checkedValueName == null ? "value" : checkedValueName;
-        vdrNotNull.validate(valName, checkedValue);
+        vdrNotNull.protect(valName, checkedValue);
         if (checkedValue.isEmpty()) {
-            throw new ValidationException(valName + " is empty.");
+            throw new ProtectException(valName + " is empty.");
         }
     }
 
     /**
      * Validate string. <code>checkedValueName</code> is "value".
      * @param checkedValue Checked string name.
-     * @throws ValidationException If string is not validated.
+     * @throws ProtectException If string is not validated.
      */
     @Override
-    public void validate(String checkedValue) throws ValidationException {
-        validate("value", checkedValue);
+    public void protect(String checkedValue) throws ProtectException {
+        protect("value", checkedValue);
     }
 }

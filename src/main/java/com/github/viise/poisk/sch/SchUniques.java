@@ -2,8 +2,8 @@ package com.github.viise.poisk.sch;
 
 import com.github.viise.poisk.NotFoundException;
 import com.github.viise.poisk.SearchList;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotEmptyList;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public final class SchUniques<T> implements SearchList<T> {
 
-    private final Validator<List<T>> vdrNotEmptyList;
+    private final Wall<List<T>> vdrNotEmptyList;
 
     public SchUniques() {
         this.vdrNotEmptyList = new VdrNotEmptyList<>();
@@ -31,8 +31,8 @@ public final class SchUniques<T> implements SearchList<T> {
     @Override
     public List<T> find(List<T> items) throws NotFoundException {
         try {
-            vdrNotEmptyList.validate("items", items);
-        } catch (ValidationException e) {
+            vdrNotEmptyList.protect("items", items);
+        } catch (ProtectException e) {
             throw new NotFoundException(e);
         }
         List<T> uniques = new ArrayList<>();

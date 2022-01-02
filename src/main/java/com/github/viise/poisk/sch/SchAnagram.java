@@ -1,11 +1,10 @@
 package com.github.viise.poisk.sch;
 
-import com.github.viise.poisk.SearchTwin;
-import com.github.viise.poisk.Validator;
 import com.github.viise.poisk.NotFoundException;
-import com.github.viise.poisk.ValidationException;
 import com.github.viise.poisk.PairTwin;
-import com.github.viise.poisk.vdr.*;
+import com.github.viise.poisk.SearchTwin;
+import com.github.viise.poisk.Wall;
+import com.github.viise.poisk.vdr.WalAnagram;
 
 /**
  * Search anagram.
@@ -15,10 +14,10 @@ import com.github.viise.poisk.vdr.*;
  */
 public final class SchAnagram implements SearchTwin<PairTwin<String>> {
 
-    private final Validator<PairTwin<String>> vdrAnagram;
+    private final Wall<PairTwin<String>> vdrAnagram;
 
     public SchAnagram() {
-        vdrAnagram = new VdrAnagram();
+        vdrAnagram = new WalAnagram();
     }
 
     /**
@@ -31,25 +30,22 @@ public final class SchAnagram implements SearchTwin<PairTwin<String>> {
      */
     @Override
     public PairTwin<String> find(final PairTwin<String> pair) throws NotFoundException {
-        try {
-            vdrAnagram.validate(pair);
-            String left = pair.left().replace(" ", "").toLowerCase();
-            String right = pair.right().replace(" ", "").toLowerCase();
+        String left = pair.left().replace(" ", "").toLowerCase();
+        String right = pair.right().replace(" ", "").toLowerCase();
 
-            int charSumLeft = 0;
-            int charSumRight = 0;
+        int charSumLeft = 0;
+        int charSumRight = 0;
 
-            for (int i = 0; i < left.length(); i++) {
-                charSumLeft += left.charAt(i);
-                charSumRight += right.charAt(i);
-            }
+        for (int i = 0; i < left.length(); i++) {
+            charSumLeft += left.charAt(i);
+            charSumRight += right.charAt(i);
+        }
 
-            if (charSumLeft != charSumRight) {
-                throw new NotFoundException("Words '" + pair.left() + "' and '" + pair.right() + "' are not anagrams.");
-            }
-
-        } catch (ValidationException e) {
-            throw new NotFoundException(e);
+        if (charSumLeft != charSumRight) {
+            throw new NotFoundException(String.format(
+                    "Words '%s' and '%s' are not anagrams",
+                    pair.left(), pair.right()
+            ));
         }
 
         return pair;

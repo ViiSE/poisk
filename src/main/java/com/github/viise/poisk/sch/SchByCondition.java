@@ -2,8 +2,8 @@ package com.github.viise.poisk.sch;
 
 import com.github.viise.poisk.SearchList;
 import com.github.viise.poisk.NotFoundException;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotEmptyList;
 import com.github.viise.poisk.vdr.VdrNotNull;
 
@@ -24,8 +24,8 @@ import java.util.function.Function;
  */
 public final class SchByCondition<T> implements SearchList<T> {
 
-    private final Validator<Object> vdrNotNull;
-    private final Validator<List<T>> vdrNotEmptyList;
+    private final Wall<Object> vdrNotNull;
+    private final Wall<List<T>> vdrNotEmptyList;
 
     private final Function<T, Boolean> condition;
 
@@ -48,9 +48,9 @@ public final class SchByCondition<T> implements SearchList<T> {
     @Override
     public List<T> find(final List<T> items) throws NotFoundException {
         try {
-            vdrNotNull.validate("condition", condition);
-            vdrNotEmptyList.validate("items", items);
-        } catch (ValidationException e) {
+            vdrNotNull.protect("condition", condition);
+            vdrNotEmptyList.protect("items", items);
+        } catch (ProtectException e) {
             throw new NotFoundException(e);
         }
 

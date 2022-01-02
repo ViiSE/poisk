@@ -3,8 +3,8 @@ package com.github.viise.poisk.sch;
 import com.github.viise.poisk.Search;
 import com.github.viise.poisk.SearchList;
 import com.github.viise.poisk.NotFoundException;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotEmptyList;
 import com.github.viise.poisk.vdr.VdrNotNull;
 
@@ -22,8 +22,8 @@ import java.util.Map;
  */
 public final class SchDuplicatesFast<T> implements SearchList<T> {
 
-    private final Validator<Object> vdrNotNull;
-    private final Validator<List<T>> vdrNotEmptyList;
+    private final Wall<Object> vdrNotNull;
+    private final Wall<List<T>> vdrNotEmptyList;
 
     private final Search<Map<T, Integer>, List<T>> schFreq;
 
@@ -55,9 +55,9 @@ public final class SchDuplicatesFast<T> implements SearchList<T> {
     @Override
     public List<T> find(List<T> items) throws NotFoundException {
         try {
-            vdrNotNull.validate("schFreq", schFreq);
-            vdrNotEmptyList.validate("items", items);
-        } catch (ValidationException e) {
+            vdrNotNull.protect("schFreq", schFreq);
+            vdrNotEmptyList.protect("items", items);
+        } catch (ProtectException e) {
             throw new NotFoundException(e);
         }
 

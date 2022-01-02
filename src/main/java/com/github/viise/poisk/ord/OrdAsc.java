@@ -1,8 +1,8 @@
 package com.github.viise.poisk.ord;
 
 import com.github.viise.poisk.Order;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotEmptyList;
 
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public final class OrdAsc<T extends Comparable<? super T>> implements Order<List<T>> {
 
-    private final Validator<List<T>> vdrNotEmptyList = new VdrNotEmptyList<>();
+    private final Wall<List<T>> vdrNotEmptyList = new VdrNotEmptyList<>();
 
     /**
      * @param items Items to be sorted for.
@@ -24,8 +24,8 @@ public final class OrdAsc<T extends Comparable<? super T>> implements Order<List
     @Override
     public List<T> sort(final List<T> items) {
         try {
-            vdrNotEmptyList.validate("items", items);
-        } catch (ValidationException e) {
+            vdrNotEmptyList.protect("items", items);
+        } catch (ProtectException e) {
             return items == null ? new ArrayList<>() : items;
         }
 

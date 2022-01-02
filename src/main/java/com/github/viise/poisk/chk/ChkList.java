@@ -2,8 +2,8 @@ package com.github.viise.poisk.chk;
 
 import com.github.viise.poisk.Chunk;
 import com.github.viise.poisk.DivideException;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNaturalInt;
 import com.github.viise.poisk.vdr.VdrNotEmptyList;
 
@@ -33,8 +33,8 @@ import java.util.List;
  */
 public final class ChkList<T> implements Chunk<List<T>> {
 
-    private final Validator<Integer> vdrNaturalInt;
-    private final Validator<List<T>> vdrNotEmptyList;
+    private final Wall<Integer> vdrNaturalInt;
+    private final Wall<List<T>> vdrNotEmptyList;
 
     private final Integer chunkCount;
 
@@ -64,8 +64,8 @@ public final class ChkList<T> implements Chunk<List<T>> {
     @Override
     public List<List<T>> divide(final List<T> items) throws DivideException {
         try {
-            vdrNaturalInt.validate("chunkCount", chunkCount);
-            vdrNotEmptyList.validate("items", items);
+            vdrNaturalInt.protect("chunkCount", chunkCount);
+            vdrNotEmptyList.protect("items", items);
 
             List<List<T>> chunkedLists = new ArrayList<>();
             int chunkSize = items.size() / chunkCount;
@@ -86,7 +86,7 @@ public final class ChkList<T> implements Chunk<List<T>> {
             chunkedLists.add(chunkedItems);
 
             return chunkedLists;
-        } catch (ValidationException e) {
+        } catch (ProtectException e) {
             throw new DivideException(e);
         }
     }

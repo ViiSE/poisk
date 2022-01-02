@@ -18,8 +18,8 @@ package com.github.viise.poisk.sch;
 
 import com.github.viise.poisk.NotFoundException;
 import com.github.viise.poisk.Search;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.flt.FltNoPunctuation;
 import com.github.viise.poisk.vdr.VdrNotEmptyStr;
 
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 public final class SchWords implements Search<List<String>, String> {
 
-    private final Validator<String> vdrNotEmptyStr;
+    private final Wall<String> vdrNotEmptyStr;
 
     private final String seps;
 
@@ -46,9 +46,9 @@ public final class SchWords implements Search<List<String>, String> {
     @Override
     public List<String> find(String sentence) throws NotFoundException {
         try {
-            vdrNotEmptyStr.validate("sentence", sentence);
-            vdrNotEmptyStr.validate("seps", seps);
-        } catch (ValidationException e) {
+            vdrNotEmptyStr.protect("sentence", sentence);
+            vdrNotEmptyStr.protect("seps", seps);
+        } catch (ProtectException e) {
             throw new NotFoundException(e);
         }
 

@@ -16,19 +16,12 @@
 
 package com.github.viise.poisk;
 
-import com.github.viise.poisk.Validator;
+import java.util.List;
 
 /**
- * Throws, if value is not validated.
- * @see Validator
+ * For searching list of items.
+ * @param <R> Search result and objects to be searched for.
+ * If search result is empty, needs throw {@link NotFoundException}.
  */
-public class ValidationException extends Exception {
-
-    /**
-     * Ctor.
-     * @param message exception message.
-     */
-    public ValidationException(String message) {
-        super(message);
-    }
+public interface SearchListSafe<R> extends Search<List<R>, List<R>> {
 }

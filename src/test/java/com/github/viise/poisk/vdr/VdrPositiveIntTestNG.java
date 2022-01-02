@@ -1,36 +1,36 @@
 package com.github.viise.poisk.vdr;
 
-import com.github.viise.poisk.Validator;
-import com.github.viise.poisk.ValidationException;
+import com.github.viise.poisk.Wall;
+import com.github.viise.poisk.ProtectException;
 import org.testng.annotations.Test;
 
 public class VdrPositiveIntTestNG {
 
-    private final Validator<Integer> vdrPositiveInt = new VdrPositiveInt();
+    private final Wall<Integer> vdrPositiveInt = new VdrPositiveInt();
 
     @Test
-    public void validate_success_1() throws ValidationException {
-        vdrPositiveInt.validate(1);
+    public void validate_success_1() throws ProtectException {
+        vdrPositiveInt.protect(1);
     }
 
     @Test
-    public void validate_success_2() throws ValidationException {
+    public void validate_success_2() throws ProtectException {
         Integer field = 1;
-        vdrPositiveInt.validate("field", field);
+        vdrPositiveInt.protect("field", field);
     }
 
     @Test
-    public void validate_success_checkedValueNameIsNull() throws ValidationException {
-        vdrPositiveInt.validate(null, 1);
+    public void validate_success_checkedValueNameIsNull() throws ProtectException {
+        vdrPositiveInt.protect(null, 1);
     }
 
-    @Test(expectedExceptions = ValidationException.class, expectedExceptionsMessageRegExp = "value must be positive.")
-    public void validate_negativevalue_1() throws ValidationException {
-        vdrPositiveInt.validate(-1);
+    @Test(expectedExceptions = ProtectException.class, expectedExceptionsMessageRegExp = "value must be positive.")
+    public void validate_negativevalue_1() throws ProtectException {
+        vdrPositiveInt.protect(-1);
     }
 
-    @Test(expectedExceptions = ValidationException.class, expectedExceptionsMessageRegExp = "field must be positive.")
-    public void validate_negativevalue_2() throws ValidationException {
-        vdrPositiveInt.validate("field", -1);
+    @Test(expectedExceptions = ProtectException.class, expectedExceptionsMessageRegExp = "field must be positive.")
+    public void validate_negativevalue_2() throws ProtectException {
+        vdrPositiveInt.protect("field", -1);
     }
 }

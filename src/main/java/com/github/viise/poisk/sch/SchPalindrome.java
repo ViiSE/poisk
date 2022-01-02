@@ -2,8 +2,8 @@ package com.github.viise.poisk.sch;
 
 import com.github.viise.poisk.SearchTwin;
 import com.github.viise.poisk.NotFoundException;
-import com.github.viise.poisk.ValidationException;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.ProtectException;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotEmptyStr;
 
 /**
@@ -14,7 +14,7 @@ import com.github.viise.poisk.vdr.VdrNotEmptyStr;
  */
 public final class SchPalindrome implements SearchTwin<String> {
 
-    private final Validator<String> vdrNotEmptyStr;
+    private final Wall<String> vdrNotEmptyStr;
 
     public SchPalindrome() {
         this.vdrNotEmptyStr = new VdrNotEmptyStr();
@@ -29,7 +29,7 @@ public final class SchPalindrome implements SearchTwin<String> {
     @Override
     public String find(String phrase) throws NotFoundException {
         try {
-            vdrNotEmptyStr.validate("phrase", phrase);
+            vdrNotEmptyStr.protect("phrase", phrase);
             String purePhrase = phrase
                     .replaceAll("\\p{P}", "")
                     .replace(" ", "")
@@ -42,7 +42,7 @@ public final class SchPalindrome implements SearchTwin<String> {
                 }
                 endIndex--;
             }
-        } catch (ValidationException e) {
+        } catch (ProtectException e) {
             throw new NotFoundException(e);
         }
 

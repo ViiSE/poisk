@@ -1,39 +1,39 @@
 package com.github.viise.poisk.vdr;
 
-import com.github.viise.poisk.Validator;
-import com.github.viise.poisk.ValidationException;
+import com.github.viise.poisk.Wall;
+import com.github.viise.poisk.ProtectException;
 
 import java.util.List;
 
 /**
  * Not empty list validation.
  */
-public final class VdrNotEmptyList<T> implements Validator<List<T>> {
+public final class VdrNotEmptyList<T> implements Wall<List<T>> {
 
-    private final Validator<Object> vdrNotNull = new VdrNotNull();
+    private final Wall<Object> vdrNotNull = new VdrNotNull();
 
     /**
      * Validate list.
      * @param checkedValueName Checked list name.
      * @param checkedValue Checked list.
-     * @throws ValidationException If list is null or empty.
+     * @throws ProtectException If list is null or empty.
      */
     @Override
-    public void validate(String checkedValueName, List<T> checkedValue) throws ValidationException {
+    public void protect(String checkedValueName, List<T> checkedValue) throws ProtectException {
         String valName = checkedValueName == null ? "value" : checkedValueName;
-        vdrNotNull.validate(valName, checkedValue);
+        vdrNotNull.protect(valName, checkedValue);
         if (checkedValue.isEmpty()) {
-            throw new ValidationException(valName + " is empty.");
+            throw new ProtectException(valName + " is empty.");
         }
     }
 
     /**
      * Validate list. <code>checkedValueName</code> is "value".
      * @param checkedValue Checked list name.
-     * @throws ValidationException If list is not validated.
+     * @throws ProtectException If list is not validated.
      */
     @Override
-    public void validate(List<T> checkedValue) throws ValidationException {
-        validate("value", checkedValue);
+    public void protect(List<T> checkedValue) throws ProtectException {
+        protect("value", checkedValue);
     }
 }

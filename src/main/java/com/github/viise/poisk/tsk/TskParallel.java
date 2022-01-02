@@ -1,7 +1,7 @@
 package com.github.viise.poisk.tsk;
 
 import com.github.viise.poisk.Task;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNaturalInt;
 import com.github.viise.poisk.vdr.VdrNotNull;
 
@@ -19,8 +19,8 @@ import java.util.concurrent.Future;
  */
 public final class TskParallel<T> implements Task<List<T>> {
 
-    private final Validator<Object> vdrNotNull = new VdrNotNull();
-    private final Validator<Integer> vdrNaturalInt = new VdrNaturalInt();
+    private final Wall<Object> vdrNotNull = new VdrNotNull();
+    private final Wall<Integer> vdrNaturalInt = new VdrNaturalInt();
 
     private final List<Task<List<T>>> tskLists;
     private final Integer threadCount;
@@ -46,8 +46,8 @@ public final class TskParallel<T> implements Task<List<T>> {
      */
     @Override
     public List<T> call() throws Exception {
-        vdrNaturalInt.validate("threadCount", threadCount);
-        vdrNotNull.validate("tskLists", tskLists);
+        vdrNaturalInt.protect("threadCount", threadCount);
+        vdrNotNull.protect("tskLists", tskLists);
 
         ExecutorService execService = Executors.newFixedThreadPool(threadCount);
         List<T> result = new ArrayList<>();

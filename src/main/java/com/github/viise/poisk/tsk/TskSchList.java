@@ -2,7 +2,7 @@ package com.github.viise.poisk.tsk;
 
 import com.github.viise.poisk.SearchList;
 import com.github.viise.poisk.Task;
-import com.github.viise.poisk.Validator;
+import com.github.viise.poisk.Wall;
 import com.github.viise.poisk.vdr.VdrNotEmptyList;
 import com.github.viise.poisk.vdr.VdrNotNull;
 
@@ -14,8 +14,8 @@ import java.util.List;
  */
 public final class TskSchList<T> implements Task<List<T>> {
 
-    private final Validator<Object> vdrNotNull = new VdrNotNull();
-    private final Validator<List<T>> vdrNotEmptyList = new VdrNotEmptyList<>();
+    private final Wall<Object> vdrNotNull = new VdrNotNull();
+    private final Wall<List<T>> vdrNotEmptyList = new VdrNotEmptyList<>();
 
     private final SearchList<T> sch;
     private final List<T> items;
@@ -37,8 +37,8 @@ public final class TskSchList<T> implements Task<List<T>> {
      */
     @Override
     public List<T> call() throws Exception {
-        vdrNotNull.validate("sch", sch);
-        vdrNotEmptyList.validate("items", items);
+        vdrNotNull.protect("sch", sch);
+        vdrNotEmptyList.protect("items", items);
 
         return sch.find(items);
     }

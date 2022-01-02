@@ -16,12 +16,17 @@
 
 package com.github.viise.poisk;
 
-import java.util.List;
-
 /**
- * For searching list of items.
- * @param <R> Search result and objects to be searched for.
- * If search result is empty, needs throw {@link NotFoundException}.
+ * Throws, if value is not validated.
+ * @see Wall
  */
-public interface SearchList<R> extends Search<List<R>, List<R>> {
+public class ProtectException extends Exception {
+
+    /**
+     * Ctor.
+     * @param message exception message.
+     */
+    public ProtectException(String message) {
+        super(message);
+    }
 }
